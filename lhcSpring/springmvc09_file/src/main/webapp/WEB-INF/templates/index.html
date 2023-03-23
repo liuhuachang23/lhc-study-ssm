@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+
+<div>
+
+    <a th:href="@{/test/down}">下载图片</a>
+    <hr>
+
+    <form th:action="@{test/up}" method="post" enctype="multipart/form-data">
+        头像：<input type="file" name="photo"> <br>
+        <input type="submit" value="上传文件" />
+    </form>
+
+</div>
+
+
+</body>
+</html>
+
+

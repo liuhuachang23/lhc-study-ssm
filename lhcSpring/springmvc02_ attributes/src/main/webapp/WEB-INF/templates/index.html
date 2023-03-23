@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <h1>index.html</h1>
+
+    <a th:href="@{/hello}">测试@RequestMapper注解所标识的位置</a> <br>
+    <a th:href="@{/abc}">测试@RequestMapper注解的value属性</a> <br>
+
+    <form th:action="@{/abc}" method="post">
+        <input type="submit">
+    </form>
+
+    <a th:href="@{/hello?username=admin&age=20}">测试@RequestMapper注解的params属性</a> <br>
+
+    <a th:href="@{/aaaaaa/test/ant}"> 测试@RequestMapper注解支持ant风格的路径 </a> <br>
+
+    <a th:href="@{/test/rest/1/admin}"> 测试@RequestMapper注解的value属性中占位符 </a>
+
+</body>
+</html>

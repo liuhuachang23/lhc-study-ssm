@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--扫描组件-->
+    <context:component-scan base-package="com.lhc.spring.aop.xml"></context:component-scan>
+
+    <aop:config>
+
+        <!--设置一个公共的切入点表达式-->
+        <aop:pointcut id="pointCut" expression="execution(* com.lhc.spring.aop.xml.*.*(..))"/>
+
+        <!--1. aop:aspect：将IOC容器中的某个bean设置为切面
+                ref：引用某个bean的id （默认id为 类名的小驼峰）
+        -->
+        <aop:aspect ref="loggerAspect">
+
+            <!--1) aop:before：将切面中的通知方法设置为 前置通知
+                    method：切面中的方法名
+                    pointcut：设置切入点表达式
+                    pointcut-ref：引用某个公共的切入点表达式
+            -->
+            <aop:before method="beforeAdviceMethod" pointcut-ref="pointCut"></aop:before>
+
+            <!--2) aop:after：将切面中的通知方法设置为 后置通知 -->
+            <aop:after method="beforeAdviceMethod" pointcut-ref="pointCut"></aop:after>
+
+            <!--3) aop:after-returning：将切面中的通知方法设置为 返回通知
+                    returning属性：就是用来接收目标对象方法执行之后的返回值，
+                    属性值 "result"： 就是将该返回值指定给 通知方法的同名参数
+            -->
+            <aop:after-returning method="afterReturningMethod" returning="result" pointcut-ref="pointCut"></aop:after-returning>
+
+            <!--4) aop:after-throwing：将切面中的通知方法设置为 异常通知
+                    throwing属性：就是用来接收目标对象方法执行过程中出现的异常，
+                    属性值 "ex"： 就是将该异常指定给 通知方法的同名参数
+            -->
+            <aop:after-throwing method="afterThrowingMethod" throwing="ex" pointcut-ref="pointCut"></aop:after-throwing>
+
+            <!--5) aop:around：将切面中的通知方法设置为 环绕通知 -->
+            <aop:around method="aroundMethod" pointcut-ref="pointCut"></aop:around>
+        </aop:aspect>
+
+        <!--2. aop:aspect：将IOC容器中的某个bean设置为切面
+                order：设置切面的优先级
+        -->
+        <aop:aspect ref="validateAspect" order="1">
+            <aop:before method="beforeMethod" pointcut-ref="pointCut"></aop:before>
+        </aop:aspect>
+
+    </aop:config>
+
+</beans>

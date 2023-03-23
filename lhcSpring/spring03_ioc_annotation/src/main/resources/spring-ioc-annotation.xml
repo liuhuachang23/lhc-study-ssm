@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--1. 扫描 com.lhc.spring包下的所有组件 -->
+    <context:component-scan base-package="com.lhc.spring"></context:component-scan>
+
+    <!--2. 指定要排除的组件-->
+    <!--<context:component-scan base-package="com.lhc.spring">
+        &lt;!&ndash;
+            context:exclude-filter标签：指定排除规则
+                type：设置排除的依据
+                    annotation：根据注解排除，expression中设置要 排除的 注解的全类名
+                    assignable：根据类型排除，expression中设置要 排除的 类型的全类名
+        &ndash;&gt;
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        &lt;!&ndash;<context:exclude-filter type="assignable" expression="com.lhc.controller.UserController"/>&ndash;&gt;
+    </context:component-scan> -->
+
+
+    <!--3. 仅扫描的组件-->
+    <!--
+		use-default-filters属性：
+			true  扫描指定包下所有类
+			false 都不扫描，（设为false后 ，在能在里面设置仅的组件）
+    -->
+
+    <!--<context:component-scan base-package="com.lhc.spring" use-default-filters="false">
+        &lt;!&ndash;
+            context:include-filter标签：指定在原有扫描规则的基础上 追加的规则
+                ( 此时必须设置use-default-filters="false"，让他都不扫描 )
+
+                type：设置包含的依据
+                    annotation，根据注解追加，expression中设置要追加的 注解的全类名
+                    assignable，根据类型追加，expression中设置要追加的 类型的全类名
+        &ndash;&gt;
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        &lt;!&ndash;<context:include-filter type="assignable" expression="com.lhc.spring.controller.UserController"/>&ndash;&gt;
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+
+    </context:component-scan>-->
+
+    <bean id="userDaoImpl" class="com.lhc.spring.dao.impl.UserDaoImpl"></bean>
+
+</beans>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--
+        MyBatis 核 心 配 置 文 件 中 ， 标 签 的 顺 序 ：
+        properties?,settings?,typeAliases?,typeHandlers?, objectFactory?,objectWrapperFactory?,
+        reflectorFactory?, plugins?,environments?,databaseIdProvider?,mappers?
+    -->
+
+    <!--1. 引入properties文件，此后就可以在当前文件中使用 的方式访问 value-->
+    <properties resource="jdbc.properties"/>
+
+    <!--4. 全局配置信息 -->
+    <settings>
+        <!-- 将下划线映射为驼峰 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <!--2. 设置类型别名-->
+    <typeAliases>
+        <package name="com.atguigu.mybatis.pojo"/>
+    </typeAliases>
+
+    <plugins>
+        <!--设置分页插件-->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+    </plugins>
+
+    <!--3. 配置连接数据库的环境-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+
+
+        <environment id="test">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/ssmserverTimezone=UTC"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+
+    </environments>
+
+
+    <!--4. 引入mybatis映射文件-->
+    <mappers>
+        <package name="com.atguigu.mybatis.mapper"/>
+    </mappers>
+
+</configuration>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+    2、 MyBatis中可以面向接口操作数据，要保证两个一致：
+        1) mapper接口的全类名和映射文件的命名空间（namespace）保持一致
+        2) mapper接口中方法的方法名和映射文件中编写SQL的标签的id属性保持一致
+-->
+
+<mapper namespace="com.lhc.mybatis.mapper.UserMapper">
+
+    <!--int insertUser();-->
+    <insert id="insertUser">
+        insert into t_user
+        values (null, 'admin', '123456', 23, '男', '12345@qq.com')
+    </insert>
+
+    <!--int deleteUser();-->
+    <delete id="deleteUser">
+        delete from t_user where id = 7
+    </delete>
+
+    <!--void updateUser();-->
+    <update id="updateUser">
+        update t_user set username = 'root', password= '123' WHERE id = 3
+    </update>
+
+    <!--User getUserById();-->
+    <!--
+        查询的标签select必须设置属性resultType或resultMap，用于设置实体类和数据库表的映射 关系
+        1）resultType：自动映射，用于属性名和表中字段名一致的情况
+        2）resultMap：自定义映射，用于一对多或多对一或字段名和属性名不一致的情况
+    -->
+    <select id="getUserById" resultType="com.lhc.mybatis.pojo.User">
+        select * from t_user where id = 2
+    </select>
+
+    <!--List<User> getUserList();-->
+    <select id="getUserList" resultType="User"> /*使用配置好的别名*/
+        select * from t_user
+    </select>
+
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lhc.mybatis.mapper.ParameterMapper">
+
+    <!--1. User getUserByUsername(String username);-->
+    <select id="getUserByUsername" resultType="User">
+        select * from t_user where username = #{username}
+    </select>
+
+    <!--2. User checkLogin(String username, String password);-->
+    <select id="checkLogin" resultType="User">
+        select * from t_user where username = #{param1} and password = #{param2}
+    </select>
+
+    <!--3. User checkLoginByMap(Map<String, Object> map);-->
+    <select id="checkLoginByMap" resultType="User">
+        select * from t_user where username = #{username} and password = #{password}
+    </select>
+
+    <!--4. void insertUser(User user);-->
+    <insert id="insertUser">
+        insert into t_user values (null,#{username},#{password},#{age},#{gender},#{email})
+    </insert>
+
+    <!--5. User checkLoginByParam(@Param("username") String username,@Param("password") String password);
+    -->
+    <select id="checkLoginByParam" resultType="User">
+        select * from t_user where username = #{username} and password = #{password}
+    </select>
+
+    <!--==========================================================-->
+
+    <!--Map<String, Object> getUserToMap(@Param("id") int id);-->
+    <select id="getUserToMap" resultType="map">
+        select * from t_user where id = #{id}
+    </select>
+
+    <!--Map<String, Object> getAllUserToMap();-->
+    <select id="getAllUserToMap" resultType="map">
+        select * from t_user
+    </select>
+
+    <!--Map<String, Object> testGetAllUserToMap();-->
+    <select id="testGetAllUserToMap" resultType="map">
+        select * from t_user
+    </select>
+
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lhc.mybatis.mapper.EmpMapper">
+
+    <resultMap id="empAndDeptByStepResultMap" type="Emp">
+        <id property="empId" column="emp_id"></id>
+        <result property="empName" column="emp_name"></result>
+        <result property="age" column="age"></result>
+        <result property="gender" column="gender"></result>
+
+        <!-- association标签：处理多对一的映射关系 (处理 实体类类型 的属性)
+                property属性：需要处理多对的映射关系的 的属性名 ( 该实体类类型属性 的属性名)
+                select属性：设置分布查询的sql的唯一标识（namespace.SQLId或mapper接口的全类名.方法名）
+                            就是绑定 通过部门id查询部门信息的那个 mapper接口.方法名
+                                com.lhc.mybatis.mapper.DeptMapper（mapper接口）
+                                .getEmpAndDeptByStepTwo（.方法名）
+                column属性：设置分步查询的条件，即 分布查询第二步 的查询条件
+        -->
+        <association property="dept"
+                     select="com.lhc.mybatis.mapper.DeptMapper.getEmpAndDeptByStepTwo"
+                     column="dept_id"></association>
+    </resultMap>
+    <!--Emp getEmpAndDeptByStepOne(@Param("empId") Integer empId);-->
+    <select id="getEmpAndDeptByStepOne" resultMap="empAndDeptByStepResultMap">
+        select * from t_emp where emp_id = #{empId}
+    </select>
+
+
+
+
+
+
+</mapper>
